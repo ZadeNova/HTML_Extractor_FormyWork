@@ -7,6 +7,17 @@ file_Name = ""
 
 soup = BeautifulSoup(open(f"{URL}\{file_Name}", encoding='utf-8'), 'html.parser')
 
+# Change all the h1/h2 tags to h3 tags
+
+h1_tags = soup.find_all('h1')
+h2_tags = soup.find_all('h2')
+
+for h1_tag in h1_tags:
+    h1_tag.name = 'h3'
+
+for h2_tag in h2_tags:
+    h2_tag.name = 'h3'
+
 # Extract from main content div onwards.
 start_div = soup.find('div', {'class':'rte'})
 
@@ -15,7 +26,8 @@ extracted_HTML = []
 
 for important_content in div_Contents:
     if important_content.name == 'div':
-        important_content.div.unwrap()
+        important_content.unwrap()
+        #important_content.div.unwrap()
         #extracted_HTML.append(important_content)
 
 extracted_HTML = [important_content for important_content in div_Contents]
@@ -23,10 +35,12 @@ extracted_HTML = [important_content for important_content in div_Contents]
 #thelist = [element for element in extracted_HTML if element.name != 'div']
 #extracted_HTML = thelist
 
-# Here is the space to edit the HTML. (Change/edit the HTML tags)
-for h1 in extracted_HTML:
-    if h1.name == "h1" or h1.name == 'h2':
-        h1.name = 'h3'
+
+#for h1 in extracted_HTML:
+#    print(f'{h1.name} {h1}')
+#    if h1.name == "h1" or h1.name == 'h2':
+#
+#        print(h1)
 
 # Removal of certain tag classes
 classes_TobeRemoved = ['read-more','featured-item--overlay ethos-featured--overlay','featured-overlay ethos-overlay','featured-overlay__content','featured-overlay__text','featured-overlay__close','close extra-small-text','icon-close','ethos-featured-story','ethos-featured-story__content']
