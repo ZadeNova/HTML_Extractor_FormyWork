@@ -3,8 +3,9 @@ import time
 from bs4 import BeautifulSoup
 
 URL = r""
+file_Name = ""
 
-soup = BeautifulSoup(open(URL, encoding='utf-8'), 'html.parser')
+soup = BeautifulSoup(open(f"{URL}\{file_Name}", encoding='utf-8'), 'html.parser')
 
 # Extract from main content div onwards.
 start_div = soup.find('div', {'class':'rte'})
