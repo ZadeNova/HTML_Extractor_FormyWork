@@ -42,6 +42,7 @@ extracted_HTML = [important_content for important_content in div_Contents]
 #
 #        print(h1)
 
+
 # Removal of certain tag classes
 classes_TobeRemoved = ['read-more','featured-item--overlay ethos-featured--overlay','featured-overlay ethos-overlay','featured-overlay__content','featured-overlay__text','featured-overlay__close','close extra-small-text','icon-close','ethos-featured-story','ethos-featured-story__content']
 
