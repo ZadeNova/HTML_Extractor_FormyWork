@@ -7,6 +7,25 @@ file_Name = ""
 
 soup = BeautifulSoup(open(f"{URL}\{file_Name}", encoding='utf-8'), 'html.parser')
 
+
+
+# Remove table tags
+
+table_Tags = soup.find_all('table',{'style':'border: none; background-color: transparent;'})
+tbody_Tags = soup.find_all('tbody')
+tr_Tags = soup.find_all('tr',{'style':'border: none;'})
+td_Tags = soup.find_all('td',{'style':'padding: 0; padding-right: 32px; border: none;'})
+td_Tags2 = soup.find_all('td',{'style':'width: 120px; border: none;'})
+# Put in a list. Find all tables and get the last table. Last table is usually for author. Remove the table and replace it with div class = author
+if len(table_Tags) == 0:
+    print("Empty. No table")
+else:
+    table_Tags[-1].unwrap()
+    tbody_Tags[-1].unwrap()
+    tr_Tags[-1].unwrap()
+    td_Tags[-1].unwrap()
+    td_Tags2[-1].unwrap()
+
 # Change all the h1/h2 tags to h3 tags
 
 h1_tags = soup.find_all('h1')
@@ -23,14 +42,15 @@ start_div = soup.find('div', {'class':'rte'})
 
 div_Contents = start_div.contents
 extracted_HTML = []
-
-for important_content in div_Contents:
-    if important_content.name == 'div':
-        important_content.unwrap()
+extracted_HTML = div_Contents
+#for important_content in div_Contents:
+#    if important_content.name == 'div':
+#        important_content.unwrap()
+#        print(important_content)
         #important_content.div.unwrap()
         #extracted_HTML.append(important_content)
 
-extracted_HTML = [important_content for important_content in div_Contents]
+#extracted_HTML = [important_content for important_content in div_Contents]
 # Remove all the spacings.
 #thelist = [element for element in extracted_HTML if element.name != 'div']
 #extracted_HTML = thelist
@@ -52,7 +72,7 @@ for class_name in classes_TobeRemoved:
         div.unwrap()
 
 # Remove h4 tag
-for h4_Tag in Cleaned_HTML.find_all('h4'):
+for h4_Tag in Cleaned_HTML.find_all('h4',{'class':'title'}):
     h4_Tag.decompose()
 
 for span in Cleaned_HTML.find_all('span',{'class':'close extra-small-text'}):
