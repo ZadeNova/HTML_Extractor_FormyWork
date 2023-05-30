@@ -3,7 +3,7 @@ import time
 from bs4 import BeautifulSoup
 
 URL = r""
-file_Name = ""
+file_Name = ".html"
 
 soup = BeautifulSoup(open(f"{URL}\{file_Name}", encoding='utf-8'), 'html.parser')
 
@@ -36,6 +36,18 @@ for h1_tag in h1_tags:
 
 for h2_tag in h2_tags:
     h2_tag.name = 'h3'
+
+# Change a certain class to h6 tags.
+special_P_Tags = soup.find_all('p',{'style':'font-weight: bold; letter-spacing: 1px;'})
+
+for p_Tag in special_P_Tags:
+    if 'style' in p_Tag.attrs:
+        del p_Tag.attrs['style']
+    if 'class' in p_Tag.attrs:
+        del p_Tag.attrs['class']
+    p_Tag.name = 'h6'
+
+
 
 # Extract from main content div onwards.
 start_div = soup.find('div', {'class':'rte'})
